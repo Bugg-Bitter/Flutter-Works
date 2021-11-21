@@ -2,239 +2,231 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isX = true;
+  int tapCounter = 0;
+  List<String> _Tiles = ['', '', '', '', '', '', '', '', ''];
+  String? winnerIs;
+  int winColor = 0;
+  int check = 0;
+  int allTiles = 0;
+  int X = 0;
+  int O = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Tik Tac Toe',
+      title: 'Material App',
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.amberAccent,
-          title: Text(
-            'Tic Tac Toe ',
-            style: TextStyle(
-              fontSize: 30.0,
-              color: Colors.black87,
-            ),
+        backgroundColor:Color(0XFF212845),  
+          appBar: AppBar(
+            title: const Text('Tic Tac Toe'),
+            centerTitle: true,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Image.asset('assets/images/tic-tac-toe.png'),
+              )
+            ],
           ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 12.0),
-              child: Image.asset('assets/images/tic-tac-toe.png'),
-            )
-          ],
-        ),
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
+          body: Column(
             children: [
-              Column(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top:120.0),
+              Expanded(
+                flex: 3,
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  itemCount: 9,
+                  itemBuilder: (context, i) {
+                    return GestureDetector(
+                      onTap: () {
+                        _CurrentTile(i);
+                      },
                       child: Container(
+                        width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.black87,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(color: Colors.black87),
                         ),
-                        height: 10.5,
-                        width: 300.5,
+                        child: Center(
+                          child: Text(
+                            _Tiles[i],
+                            style: const TextStyle(
+                              fontSize: 100.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: (check == 1)
+                    ? Text(
+                        'Winner is $winnerIs',
+                        style: TextStyle(
+                          fontSize: 75.0,
+                        ),
+                      )
+                    : (tapCounter == 9) && (check == 0)
+                        ? Text(
+                            'Its a Draw !',
+                            style: TextStyle(
+                              fontSize: 55.0,
+                            ),
+                          )
+                        : Text(''),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom:20.0,right:25.0),
+                    child: Text(
+                      'X = $X',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0XFFF8D320),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:90.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black87,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      height: 10.5,
-                      width: 300.5,
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: SizedBox(
+                      height: 40.0,
+                      width: 100.0,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              for (int i = 0; i < 9; i++) _Tiles[i] = '';
+                              tapCounter = 0;
+                              isX = true;
+                              winColor = 0;
+                              winnerIs = null;
+                              check = 0;
+                              
+                            });
+                          },
+                          child: Text(
+                            'Reset',
+                            style: TextStyle(
+                              fontSize: 25.0,
+                            ),
+                          )),
                     ),
                   ),
-                  
+                  Padding(
+                    padding: const EdgeInsets.only(bottom:20.0,right:20.0),
+                    child: Text(
+                      'O = $O',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left:140.0,top:40.0),
-                child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black87,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        height: 300.5,
-                        width: 10.5,
-                      ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(left:265.0,top:40.0),
-                child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black87,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        height: 300.5,
-                        width: 10.5,
-                      ),
-              ),
             ],
-          ),
-          
-        ),
-      ),
+          )),
     );
   }
+
+  void _CurrentTile(int i) {
+    setState(() {
+      tapCounter++;
+      if (isX && _Tiles[i] == '')
+        _Tiles[i] = 'X';
+      else if (!isX && _Tiles[i] == '') _Tiles[i] = 'O';
+      isX = !isX;
+      winner();
+    });
+  }
+
+  void winner() {
+    /// First Row
+    if (_Tiles[0] == _Tiles[1] && _Tiles[1] == _Tiles[2] && _Tiles[0] != '') {
+      winnerIs = _Tiles[0];
+      check++;
+      XorO(winnerIs);
+    }
+
+    /// Second Row
+    else if (_Tiles[3] == _Tiles[4] &&
+        _Tiles[3] == _Tiles[5] &&
+        _Tiles[3] != '') {
+      winnerIs = _Tiles[3];
+      check++;
+      XorO(winnerIs);
+    }
+
+    /// Third Row
+    else if (_Tiles[6] == _Tiles[7] &&
+        _Tiles[6] == _Tiles[8] &&
+        _Tiles[6] != '') {
+      winnerIs = _Tiles[6];
+      check++;
+      XorO(winnerIs);
+    }
+
+    /// First Column
+    else if (_Tiles[0] == _Tiles[3] &&
+        _Tiles[0] == _Tiles[6] &&
+        _Tiles[0] != '') {
+      winnerIs = _Tiles[0];
+      check++;
+      XorO(winnerIs);
+    }
+
+    /// Second Column
+    else if (_Tiles[1] == _Tiles[4] &&
+        _Tiles[1] == _Tiles[7] &&
+        _Tiles[1] != '') {
+      winnerIs = _Tiles[1];
+      check++;
+      XorO(winnerIs);
+    }
+
+    /// Third Column
+    else if (_Tiles[2] == _Tiles[5] &&
+        _Tiles[2] == _Tiles[8] &&
+        _Tiles[2] != '') {
+      winnerIs = _Tiles[2];
+      check++;
+      XorO(winnerIs);
+    }
+
+    /// Left Diagonal
+    else if (_Tiles[0] == _Tiles[4] &&
+        _Tiles[0] == _Tiles[8] &&
+        _Tiles[0] != '') {
+      winnerIs = _Tiles[0];
+      check++;
+      XorO(winnerIs);
+    }
+
+    /// Right Diagonal
+    else if (_Tiles[2] == _Tiles[4] &&
+        _Tiles[2] == _Tiles[6] &&
+        _Tiles[2] != '') {
+      winnerIs = _Tiles[2];
+      check++;
+      XorO(winnerIs);
+    }
+
+  }
+
+
+  void XorO(String? value){
+    value == 'X'?  X++ : O++;
+
+  }
 }
-// Padding(
-//               padding:EdgeInsets.only(top:ScreenHeight / 80.0),
-//               child:Container(
-//               height:1.5,
-//               width:ScreenWidth / 1.5,
-//               color:Colors.grey,
-//               ),
-//               )
-
-// import 'package:flutter/material.dart';
-
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatefulWidget {
-//   @override
-//   State<MyApp> createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-//   int redPlayer = 20;
-//   int greenPlayer = 20;
-
-//   bool isStarted = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Material App',
-//       home: Scaffold(
-//         floatingActionButton: redPlayer > 35 || greenPlayer > 35
-//             ? FloatingActionButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     redPlayer = 20;
-//                     greenPlayer = 20;
-//                     isStarted = false;
-//                   });
-//                 },
-//                 child: Text("Reset"),
-//               )
-//             : Text(""),
-//         body: Container(
-//             width: double.infinity,
-//             height: double.infinity,
-//             child: Stack(
-//               children: [
-//                 Column(
-//                   children: [
-//                     Expanded(
-//                       flex: redPlayer,
-//                       child: InkWell(
-//                         onTap: () {
-//                           setState(() {
-//                             redPlayer += 1;
-//                             greenPlayer -= 1;
-//                           });
-//                         },
-//                         onDoubleTap: () {
-//                           setState(() {
-//                             redPlayer += 1;
-//                             greenPlayer -= 1;
-//                           });
-//                         },
-//                         child: Container(
-//                           width: double.infinity,
-//                           height: double.infinity,
-//                           color: Colors.redAccent,
-//                           child: redPlayer > 35
-//                               ? Center(
-//                                   child: Text(
-//                                     "Red Won!!",
-//                                     style: TextStyle(
-//                                         fontSize: 30.0, color: Colors.white),
-//                                   ),
-//                                 )
-//                               : Text(""),
-//                         ),
-//                       ),
-//                     ),
-//                     Expanded(
-//                       flex: greenPlayer,
-//                       child: InkWell(
-//                         onTap: () {
-//                           setState(() {
-//                             greenPlayer += 1;
-//                             redPlayer -= 1;
-//                           });
-//                         },
-//                         onDoubleTap: () {
-//                           setState(() {
-//                             greenPlayer += 1;
-//                             redPlayer -= 1;
-//                           });
-//                         },
-//                         child: Container(
-//                           width: double.infinity,
-//                           height: double.infinity,
-//                           color: Colors.greenAccent,
-//                           child: greenPlayer > 35
-//                               ? Center(
-//                                   child: Text(
-//                                     "Green Won!!",
-//                                     style: TextStyle(
-//                                         fontSize: 30.0, color: Colors.white),
-//                                   ),
-//                                 )
-//                               : Text(""),
-//                         ),
-//                       ),
-//                     )
-//                   ],
-//                 ),
-//                 Container(
-//                   child: isStarted == false
-//                       ? Container(
-//                           color: Colors.purple.withOpacity(0.5),
-//                           child: Center(
-//                             child: GestureDetector(
-//                               onTap: () {
-//                                 setState(() {
-//                                   isStarted = true;
-//                                 });
-//                               },
-//                               child: Card(
-//                                 child: Padding(
-//                                   padding: const EdgeInsets.all(60.0),
-//                                   child: Text(
-//                                     "Start",
-//                                     style: TextStyle(fontSize: 28.0),
-//                                   ),
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-//                         )
-//                       : Text(""),
-//                 )
-//               ],
-//             )),
-//       ),
-//     );
-//   }
-// }
