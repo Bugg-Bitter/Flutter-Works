@@ -3,7 +3,7 @@ import 'dart:math';
 
 void main() {
   runApp(Dicer());
-}
+} 
 
 class Dicer extends StatefulWidget {
   const Dicer({Key? key}) : super(key: key);
