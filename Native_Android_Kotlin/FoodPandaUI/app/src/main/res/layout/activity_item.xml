@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backGround_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffd04e"
+    android:orientation="vertical"
+    tools:context=".Item">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight=".1"
+            android:background="#ffd04e"
+            android:onClick="backToMenu"
+            android:src="@drawable/arrow_back_vt" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".8" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_weight=".1"
+            android:background="#ffd04e"
+            android:src="@drawable/heart" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/white_layout"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/top_round_item"
+        android:backgroundTint="@color/white">
+
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/items_IV"
+        android:layout_width="wrap_content"
+        android:layout_height="280dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/burger" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="290dp">
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:backgroundTint="@color/btn_red"
+            android:onClick="increaseQuantity"
+            android:text="+"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/foodQuantity_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="205dp"
+            android:layout_marginTop="10dp"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="230dp"
+            android:backgroundTint="@color/btn_red"
+            android:onClick="decreaseQuantity"
+            android:text="-"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
+            android:text="৳"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/foodPrice_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:text="240.0"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="380dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Beef Pizza"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:text="Fresh beef pizza salad with lettuce green mix, cherry tomatoes , herbs and olive oil, lemon dressing best food ..."
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="188dp"
+            android:layout_marginTop="512dp"
+            android:text="Read More"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <!-- Start-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="515dp">
+
+        <ImageView
+            android:id="@+id/rating_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/star" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/rating_IV"
+            android:layout_marginStart="47dp"
+            android:layout_marginTop="2dp"
+            android:text="4.5"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!--fire-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="515dp">
+
+        <ImageView
+            android:id="@+id/fire_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="120dp"
+            android:src="@drawable/fire" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/fire_IV"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="2dp"
+            android:text="100 Kcal"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!--Time-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="515dp">
+
+        <ImageView
+            android:id="@+id/watch_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="250dp"
+            android:src="@drawable/watch" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/watch_IV"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="2dp"
+            android:text=" 5-10 Min"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="553dp"
+        android:text="Ingradients"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ingredients_RV"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="590dp"
+        android:layout_marginEnd="25dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="650dp"
+        android:backgroundTint="@color/btn_red"
+        android:text="Add To Cart"
+        app:cornerRadius="10dp" />
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FoodPanda UI</string>
+
+    <!-- Home Strings -->
+    <string name="title">30K+ SALAD ITEMS HERE</string>
+    <string name="details_1">Enjoy Healthy</string>
+    <string name="details_2">Food</string>
+    <string name="btn_text">Get Started</string>
+
+
+    <!-- Menu Strings -->
+    <string name="location">Banani City</string>
+</resources>
